@@ -1,28 +1,58 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div
+    id="app"
+    class="app-wrap"
+  >
+    <nav>
+      <ul>
+        <li>
+          <button
+            type="button"
+            @click="resetGame()"
+          >
+            Reset
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <schulte-table
+      :numbers="numbers"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { gameService } from './services/game-service';
+import SchulteTable from './components/SchulteTable';
 
 export default {
   name: 'app',
+
+  data () {
+    return {
+      numbers: []
+    }
+  },
+
   components: {
-    HelloWorld
+    SchulteTable
+  },
+
+  created () {
+    this.numbers = gameService.mixNumbers(25);
+  },
+
+  methods: {
+    resetGame () {
+      this.numbers = gameService.mixNumbers(25);
+    }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  .app-wrap {
+    max-width: 600px;
+    margin: auto;
+  }
 </style>
