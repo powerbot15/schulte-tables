@@ -8,7 +8,8 @@
       <td
         v-for="(innerNumber, innerIndex) in number"
         :key="innerIndex * 10"
-        :class="'cell-' + number.length + ' ' + passed(innerNumber)"
+        class="cell"
+        :class="passed(innerNumber)"
         @click="checkNumber(innerNumber)"
       >
         {{innerNumber.value}}
@@ -47,12 +48,12 @@ export default {
     border-collapse: collapse;
     margin: auto;
 
-    .cell-5 {
-      padding: 40px;
+    .cell {
+      padding: 50px;
       border: 1px solid #ababab;
       cursor: pointer;
       text-align: center;
-      font-size: 36px;
+      font-size: 48px;
       font-weight: 700;
       color: #333;
     }

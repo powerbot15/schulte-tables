@@ -7,6 +7,9 @@
       @resetGame="resetGame"
       @setLevel="setLevel"
     />
+    <p>
+      Now select {{currentNumberCollected}}
+    </p>
     <schulte-table
       :numbers="numbers"
       @checkNumber="checkNumber"
@@ -39,6 +42,12 @@ export default {
     this.numbers = gameService.mixNumbers(25);
   },
 
+  computed: {
+    currentNumberCollected () {
+      return this.selectedNumbers.length === 25 ? 'All collected!' : this.selectedNumbers.length + 1;
+    }
+  },
+
   methods: {
     resetGame () {
       this.numbers = gameService.mixNumbers(25);
@@ -51,7 +60,10 @@ export default {
     },
     checkNumber (number) {
       console.log(number);
-      number.checked = true;
+      if (number.value === this.selectedNumbers.length + 1) {
+        number.checked = true;
+        this.selectedNumbers.push(number);
+      }
     }
   }
 }
@@ -59,7 +71,7 @@ export default {
 
 <style lang="scss">
   .app-wrap {
-    max-width: 600px;
+    max-width: 750px;
     margin: auto;
   }
 </style>
