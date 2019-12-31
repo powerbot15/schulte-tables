@@ -24,7 +24,9 @@ export default {
 
   data () {
     return {
-      numbers: []
+      numbers: [],
+      selectedNumbers: [],
+      currentNumber: 1
     }
   },
 
@@ -40,12 +42,16 @@ export default {
   methods: {
     resetGame () {
       this.numbers = gameService.mixNumbers(25);
+      this.selectedNumbers = [];
+      this.currentNumber = 1;
     },
     setLevel (level) {
       this.$store.commit('setLevel', level);
+      this.resetGame();
     },
     checkNumber (number) {
       console.log(number);
+      number.checked = true;
     }
   }
 }

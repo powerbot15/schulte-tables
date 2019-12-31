@@ -8,10 +8,10 @@
       <td
         v-for="(innerNumber, innerIndex) in number"
         :key="innerIndex * 10"
-        :class="'cell-' + number.length"
+        :class="'cell-' + number.length + ' ' + passed(innerNumber)"
         @click="checkNumber(innerNumber)"
       >
-        {{innerNumber}}
+        {{innerNumber.value}}
       </td>
     </tr>
   </tbody>
@@ -29,9 +29,14 @@ export default {
       }
     }
   },
+
   methods: {
     checkNumber (number) {
       this.$emit('checkNumber', number);
+    },
+    passed (item) {
+      const classBase = `passed-${this.$store.state.level}`
+      return item.checked ? classBase : '';
     }
   }
 }
@@ -50,6 +55,17 @@ export default {
       font-size: 36px;
       font-weight: 700;
       color: #333;
+    }
+    .passed-easy {
+      color: #ffffff;
+    }
+    .passed-medium {
+      background: #ababab;
+    }
+    .passed-hard {
+      &:hover {
+        color: #00AA00;
+      }
     }
   }
 </style>

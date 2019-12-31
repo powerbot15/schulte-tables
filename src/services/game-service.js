@@ -5,7 +5,10 @@ export const gameService = {
     const sideSize = Math.sqrt(size);
     let firstIndex, secondIndex, tmp, commonIndex;
     for (let i = 1; i <= size; i++) {
-      numbers.push(i);
+      numbers.push({
+        value: i,
+        checked: false
+      });
     }
     for (let i = 0; i < size; i++) {
       firstIndex = getRandomInt(0, size - 1);
