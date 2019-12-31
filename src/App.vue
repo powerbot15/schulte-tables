@@ -8,7 +8,7 @@
       @setLevel="setLevel"
     />
     <p>
-      Now select {{currentNumberCollected}}
+      {{currentNumberCollected}}
     </p>
     <schulte-table
       :numbers="numbers"
@@ -44,7 +44,7 @@ export default {
 
   computed: {
     currentNumberCollected () {
-      return this.selectedNumbers.length === 25 ? 'All collected!' : this.selectedNumbers.length + 1;
+      return this.selectedNumbers.length === 25 ? 'All collected!' : `Now select ${this.selectedNumbers.length + 1}`;
     }
   },
 
