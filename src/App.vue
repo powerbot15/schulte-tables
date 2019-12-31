@@ -3,20 +3,13 @@
     id="app"
     class="app-wrap"
   >
-    <nav>
-      <ul>
-        <li>
-          <button
-            type="button"
-            @click="resetGame()"
-          >
-            Reset
-          </button>
-        </li>
-      </ul>
-    </nav>
+    <actions
+      @resetGame="resetGame"
+      @setLevel="setLevel"
+    />
     <schulte-table
       :numbers="numbers"
+      @checkNumber="checkNumber"
     />
   </div>
 </template>
@@ -24,6 +17,7 @@
 <script>
 import { gameService } from './services/game-service';
 import SchulteTable from './components/SchulteTable';
+import Actions from './components/Actions';
 
 export default {
   name: 'app',
@@ -35,7 +29,8 @@ export default {
   },
 
   components: {
-    SchulteTable
+    SchulteTable,
+    Actions
   },
 
   created () {
@@ -45,6 +40,12 @@ export default {
   methods: {
     resetGame () {
       this.numbers = gameService.mixNumbers(25);
+    },
+    setLevel (level) {
+      this.$store.commit('setLevel', level);
+    },
+    checkNumber (number) {
+      console.log(number);
     }
   }
 }

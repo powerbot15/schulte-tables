@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     checkNumber (number) {
-      console.log(number);
+      this.$emit('checkNumber', number);
     }
   }
 }
