@@ -10,6 +10,7 @@
     <p>
       {{currentNumberCollected}}
     </p>
+    <timer />
     <schulte-table
       :numbers="numbers"
       @checkNumber="checkNumber"
@@ -19,7 +20,9 @@
 
 <script>
 import { gameService } from './services/game-service';
+import { eventBus } from './services/event-bus';
 import SchulteTable from './components/SchulteTable';
+import Timer from './components/Timer';
 import Actions from './components/Actions';
 
 export default {
@@ -35,7 +38,8 @@ export default {
 
   components: {
     SchulteTable,
-    Actions
+    Actions,
+    Timer
   },
 
   created () {
@@ -53,16 +57,19 @@ export default {
       this.numbers = gameService.mixNumbers(25);
       this.selectedNumbers = [];
       this.currentNumber = 1;
+      eventBus.$emit('startTimer');
     },
     setLevel (level) {
       this.$store.commit('setLevel', level);
       this.resetGame();
     },
     checkNumber (number) {
-      console.log(number);
       if (number.value === this.selectedNumbers.length + 1) {
         number.checked = true;
         this.selectedNumbers.push(number);
+      }
+      if (this.selectedNumbers.length === 25) {
+        eventBus.$emit('stopTimer');
       }
     }
   }

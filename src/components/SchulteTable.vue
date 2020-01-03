@@ -36,7 +36,7 @@ export default {
       this.$emit('checkNumber', number);
     },
     passed (item) {
-      const classBase = `passed-${this.$store.state.level}`
+      const classBase = `passed-${this.$store.state.level}`;
       return item.checked ? classBase : '';
     }
   }
