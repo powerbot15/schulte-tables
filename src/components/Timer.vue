@@ -50,10 +50,17 @@ export default {
       }, 1000);
     },
 
-    stopTimer () {
+    stopTimer (keepResults) {
       if (this.timeInterval) {
+        !keepResults && this.resetTime();
         clearInterval(this.timeInterval);
       }
+    },
+
+    resetTime () {
+      this.timer.seconds = 0;
+      this.timer.minutes = 0;
+      this.timer.hours = 0;
     }
   }
 }

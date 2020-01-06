@@ -7,10 +7,12 @@
       @resetGame="resetGame"
       @setLevel="setLevel"
     />
-    <p>
-      {{currentNumberCollected}}
-    </p>
-    <timer />
+    <div class="game-info">
+      <span>
+        {{currentNumberCollected}}
+      </span>
+      <timer />
+    </div>
     <schulte-table
       :numbers="numbers"
       @checkNumber="checkNumber"
@@ -32,7 +34,8 @@ export default {
     return {
       numbers: [],
       selectedNumbers: [],
-      currentNumber: 1
+      currentNumber: 1,
+      gameStarted: false
     }
   },
 
@@ -57,19 +60,24 @@ export default {
       this.numbers = gameService.mixNumbers(25);
       this.selectedNumbers = [];
       this.currentNumber = 1;
-      eventBus.$emit('startTimer');
+      this.gameStarted = false;
+      eventBus.$emit('stopTimer');
     },
     setLevel (level) {
       this.$store.commit('setLevel', level);
       this.resetGame();
     },
     checkNumber (number) {
+      if (!this.gameStarted) {
+        this.gameStarted = true;
+        eventBus.$emit('startTimer');
+      }
       if (number.value === this.selectedNumbers.length + 1) {
         number.checked = true;
         this.selectedNumbers.push(number);
       }
       if (this.selectedNumbers.length === 25) {
-        eventBus.$emit('stopTimer');
+        eventBus.$emit('stopTimer', true);
       }
     }
   }
@@ -80,5 +88,11 @@ export default {
   .app-wrap {
     max-width: 750px;
     margin: auto;
+
+    .game-info {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 </style>
