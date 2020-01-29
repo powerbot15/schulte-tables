@@ -68,8 +68,8 @@ export default {
       align-items: center;
       list-style: none;
     }
-    .btn-wrap {
-      /*padding-right: 20px;*/
+    .btn-wrap:first-child {
+      padding-right: 100px;
     }
     .active {
       background-color: #00aa00;
@@ -79,14 +79,15 @@ export default {
       background: none;
       cursor: pointer;
       border-radius: 4px;
-      padding: 10px 20px;
+      padding: 10px 0;
+      text-align: center;
+      width: 85px;
       border: 1px solid #888888;
       &.active,
       &:hover {
-        background-color: #00aa00;
-      }
-      &.btn-reset {
-        margin-right: 100px;
+        background-color: #21bf73;
+        color: #ffffff;
+        font-weight: 700;
       }
       &.btn-easy {
         border-top-right-radius: 0;
@@ -100,6 +101,13 @@ export default {
         border-radius: 0;
       }
     }
-
+  }
+  @media (max-width: 375px) {
+    .app-nav {
+      .btn-wrap:first-child {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+    }
   }
 </style>

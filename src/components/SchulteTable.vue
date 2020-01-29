@@ -8,7 +8,7 @@
       <td
         v-for="(innerNumber, innerIndex) in number"
         :key="innerIndex * 10"
-        class="cell"
+        class="game-field__cell"
         :class="passed(innerNumber)"
         @click="checkNumber(innerNumber)"
       >
@@ -36,7 +36,7 @@ export default {
       this.$emit('checkNumber', number);
     },
     passed (item) {
-      const classBase = `passed-${this.$store.state.level}`;
+      const classBase = `game-field__cell--passed-${this.$store.state.level}`;
       return item.checked ? classBase : '';
     }
   }
@@ -48,7 +48,7 @@ export default {
     border-collapse: collapse;
     margin: auto;
 
-    .cell {
+    .game-field__cell {
       padding: 50px;
       border: 1px solid #ababab;
       cursor: pointer;
@@ -57,15 +57,23 @@ export default {
       font-weight: 700;
       color: #333;
     }
-    .passed-easy {
+    .game-field__cell--passed-easy {
       color: #ffffff;
     }
-    .passed-medium {
+    .game-field__cell--passed-medium {
       background: #ababab;
     }
-    .passed-hard {
+    .game-field__cell--passed-hard {
       &:hover {
         color: #00AA00;
+      }
+    }
+  }
+  @media (max-width: 375px) {
+    .game-field {
+      .game-field__cell {
+        padding: 20px;
+        font-size: 32px;
       }
     }
   }
